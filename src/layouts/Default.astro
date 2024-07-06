@@ -14,7 +14,7 @@ const url = `${Astro.url.origin}${import.meta.env.BASE_URL}`;
 
 const { title, description, image, color } = Astro.props;
 
-const imageUrl = image ? `${url}${image}` : undefined;
+const imageUrl = image ? `${url}/${image}` : undefined;
 ---
 
 <Head>
