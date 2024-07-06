@@ -1,33 +1,38 @@
 ---
 import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
 
 interface Props {
-    latest?: boolean;
+    highlighted?: boolean;
+    pinned?: boolean;
     title: string;
     href: string;
     date: Date;
     image: string;
 }
 
-const { latest, title, href, date, image } = Astro.props;
+const { highlighted, pinned, title, href, date, image } = Astro.props;
 
-const imageWidth = latest ? 1440 : 720;
-const imageHeight = latest ? 720 : 360;
+const imageWidth = highlighted ? 1440 : 720;
+const imageHeight = highlighted ? 720 : 360;
+
+// const imageWidth = 720;
+// const imageHeight = 360;
 ---
 
 <!-- 
 class:list={[
         "group flex w-fit cursor-pointer flex-col flex-wrap content-center justify-center rounded-lg p-4",
-        { "my-1 max-w-5xl pt-2": latest },
-        { "max-w-lg": !latest },
+        { "my-1 max-w-5xl pt-2": highlighted },
+        { "max-w-lg": !highlighted },
     ]}
 -->
 <a href={href}>
     <div
         class:list={[
             "group flex w-fit cursor-pointer flex-col flex-wrap content-center justify-center rounded-lg p-4",
-            { "my-1 max-w-5xl pt-2": latest },
-            { "max-w-lg": !latest },
+            { "my-1 max-w-5xl pt-2": highlighted },
+            { "max-w-lg": !highlighted },
         ]}
     >
         <div class="flex items-center justify-center">
@@ -39,7 +44,13 @@ class:list={[
                 class:list={["rounded-2xl transition-all duration-150", "group-hover:drop-shadow-2xl"]}
             />
         </div>
-        <div class:list={["mt-4 flex flex-col flex-wrap", { "items-center": latest }, { "items-start": !latest }]}>
+        <div
+            class:list={[
+                "mt-4 flex flex-col flex-wrap items-start",
+                { "lg:items-center": highlighted },
+                // { "items-start": !highlighted },
+            ]}
+        >
             <h1 id="title" class="text-3xl font-bold transition-colors duration-150 group-hover:text-blue-500">
                 {title}
             </h1>
@@ -54,11 +65,18 @@ class:list={[
                     }
                 </time>
             </p>
+            {
+                pinned && (
+                    <div class="absolute flex place-self-end">
+                        <Icon class="m-4 text-lg text-white lg:text-2xl" name="carbon:pin-filled" />
+                    </div>
+                )
+            }
         </div>
     </div>
 </a>
 
-<!-- latest card
+<!-- highlighted card
 <div class="flex w-fit max-w-5xl flex-col flex-wrap content-center justify-center rounded-lg p-4">
 	<div class="flex items-center justify-center">
 		<Image src={ImagePlaceholder} alt={""} width="1440" height="720" class={"rounded-2xl"} />
