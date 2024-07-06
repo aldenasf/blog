@@ -1,61 +1,71 @@
 ---
+import { Image } from "astro:assets";
+
 interface Props {
-	title: string;
-	body: string;
-	href: string;
+    latest?: boolean;
+    title: string;
+    href: string;
+    date: Date;
+    image: string;
 }
 
-const { href, title, body } = Astro.props;
+const { latest, title, href, date, image } = Astro.props;
+
+const imageWidth = latest ? 1440 : 720;
+const imageHeight = latest ? 720 : 360;
 ---
 
-<li class="link-card">
-	<a href={href}>
-		<h2>
-			{title}
-			<span>&rarr;</span>
-		</h2>
-		<p>
-			{body}
-		</p>
-	</a>
-</li>
-<style>
-	.link-card {
-		list-style: none;
-		display: flex;
-		padding: 1px;
-		background-color: #23262d;
-		background-image: none;
-		background-size: 400%;
-		border-radius: 7px;
-		background-position: 100%;
-		transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-		box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
-	}
-	.link-card > a {
-		width: 100%;
-		text-decoration: none;
-		line-height: 1.4;
-		padding: calc(1.5rem - 1px);
-		border-radius: 8px;
-		color: white;
-		background-color: #23262d;
-		opacity: 0.8;
-	}
-	h2 {
-		margin: 0;
-		font-size: 1.25rem;
-		transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-	}
-	p {
-		margin-top: 0.5rem;
-		margin-bottom: 0;
-	}
-	.link-card:is(:hover, :focus-within) {
-		background-position: 0;
-		background-image: var(--accent-gradient);
-	}
-	.link-card:is(:hover, :focus-within) h2 {
-		color: rgb(var(--accent-light));
-	}
-</style>
+<!-- 
+class:list={[
+        "group flex w-fit cursor-pointer flex-col flex-wrap content-center justify-center rounded-lg p-4",
+        { "my-1 max-w-5xl pt-2": latest },
+        { "max-w-lg": !latest },
+    ]}
+-->
+<a href={href}>
+    <div
+        class:list={[
+            "group flex w-fit cursor-pointer flex-col flex-wrap content-center justify-center rounded-lg p-4",
+            { "my-1 max-w-5xl pt-2": latest },
+            { "max-w-lg": !latest },
+        ]}
+    >
+        <div class="flex items-center justify-center">
+            <Image
+                src={image}
+                alt={""}
+                width={imageWidth}
+                height={imageHeight}
+                class:list={["rounded-2xl transition-all duration-150", "group-hover:drop-shadow-2xl"]}
+            />
+        </div>
+        <div class:list={["mt-4 flex flex-col flex-wrap", { "items-center": latest }, { "items-start": !latest }]}>
+            <h1 id="title" class="text-3xl font-bold transition-colors duration-150 group-hover:text-blue-500">
+                {title}
+            </h1>
+            <p id="date" class="mt-1 text-neutral-400 transition-colors duration-150 group-hover:text-blue-500">
+                <time datetime={date.toISOString()}>
+                    {
+                        date.toLocaleDateString("en-us", {
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric",
+                        })
+                    }
+                </time>
+            </p>
+        </div>
+    </div>
+</a>
+
+<!-- latest card
+<div class="flex w-fit max-w-5xl flex-col flex-wrap content-center justify-center rounded-lg p-4">
+	<div class="flex items-center justify-center">
+		<Image src={ImagePlaceholder} alt={""} width="1440" height="720" class={"rounded-2xl"} />
+	</div>
+	<div class="mt-4 flex flex-col flex-wrap items-center">
+		<h1 id="title" class="text-3xl font-bold">Using MDX</h1>
+		<p id="date" class="mt-1 text-neutral-300">July 19, 2024</p>
+	</div>
+</div>
+-->

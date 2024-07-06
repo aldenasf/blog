@@ -1,0 +1,51 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import Page from "./Page.astro";
+
+type Props = CollectionEntry<"posts">["data"];
+
+const { title, date, image } = Astro.props;
+---
+
+<Page>
+    <main class="flex flex-col flex-wrap items-center justify-center py-2 lg:py-8">
+        <div class="flex flex-col flex-wrap items-center">
+            {
+                image && (
+                    <div id="image" class="flex">
+                        <img
+                            width={1020}
+                            height={510}
+                            src={image}
+                            alt=""
+                            class="max-w-sm rounded-xl drop-shadow-2xl lg:max-w-none"
+                        />
+                    </div>
+                )
+            }
+            <div class="mt-5 flex flex-col flex-wrap items-center lg:mt-10">
+                <p class="text-sm text-neutral-400 lg:text-xl">
+                    {
+                        date.toLocaleDateString("en-us", {
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric",
+                        })
+                    }
+                </p>
+                <h1 class="my-2 text-center text-3xl font-bold lg:mx-10 lg:my-4 lg:text-5xl">{title}</h1>
+                <hr class="mt-2 min-w-full border-t-2 border-t-gray-700 opacity-20 lg:mt-4" />
+            </div>
+        </div>
+        <div class="mt-10 flex">
+            <article class="prose prose-sm lg:prose-xl prose-gray prose-invert max-w-sm p-3 lg:max-w-5xl">
+                <slot />
+            </article>
+        </div>
+        <!-- 
+            <p>{updatedDate}</p>
+            <p>{image}</p>
+            <slot /> -->
+    </main>
+</Page>
