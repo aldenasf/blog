@@ -6,7 +6,7 @@ const posts = defineCollection({
     schema: z.object({
         title: z.string(),
         date: z.coerce.date(),
-        image: z.string(),
+        image: z.preprocess((i) => `${import.meta.env.BASE_URL}${i}`, z.string()),
         pinned: z.any().optional(),
     }),
 });
