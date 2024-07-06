@@ -1,20 +1,32 @@
 ---
 import "../main.css";
-interface Props {
-    title?: string;
+import Head from "./Head.astro";
+import Body from "./Body.astro";
+
+export interface Props {
+    title: string;
+    description: string;
+    image: string;
+    color: string;
 }
 
-const { title } = Astro.props;
+const url = `${Astro.url.origin}${import.meta.env.BASE_URL}`;
+
+const { title, description, image, color } = Astro.props;
+
+const imageUrl = image ? `${url}${image}` : undefined;
 ---
 
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>{title || "Blog"}</title>
-    </head>
-    <body class="font-body bg-gray-800 text-white">
-        <slot />
-    </body>
-</html>
+<Head>
+    <title>{title}</title>
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={url} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={imageUrl} />
+    <meta content={color} data-react-helmet="true" name="theme-color" />
+</Head>
+<Body>
+    <slot />
+</Body>
