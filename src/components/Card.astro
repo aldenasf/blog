@@ -1,0 +1,89 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+    highlighted?: boolean;
+    pinned?: boolean;
+    title: string;
+    href: string;
+    date: Date;
+    image: string;
+}
+
+const { highlighted, pinned, title, href, date, image } = Astro.props;
+
+const imageWidth = highlighted ? 1440 : 720;
+const imageHeight = highlighted ? 720 : 360;
+
+// const imageWidth = 720;
+// const imageHeight = 360;
+---
+
+<!-- 
+class:list={[
+        "group flex w-fit cursor-pointer flex-col flex-wrap content-center justify-center rounded-lg p-4",
+        { "my-1 max-w-5xl pt-2": highlighted },
+        { "max-w-lg": !highlighted },
+    ]}
+-->
+<a href={href}>
+    <div
+        class:list={[
+            "group flex w-fit cursor-pointer flex-col flex-wrap content-center justify-center rounded-lg p-4",
+            { "my-1 max-w-5xl pt-2": highlighted },
+            { "max-w-lg": !highlighted },
+        ]}
+    >
+        <div class="flex items-center justify-center">
+            <Image
+                src={image}
+                alt={""}
+                width={imageWidth}
+                height={imageHeight}
+                class:list={["rounded-2xl transition-all duration-150", "group-hover:drop-shadow-2xl"]}
+            />
+        </div>
+        <div
+            class:list={[
+                "mt-4 flex flex-col flex-wrap items-start",
+                { "lg:items-center": highlighted },
+                // { "items-start": !highlighted },
+            ]}
+        >
+            <h1 id="title" class="text-3xl font-bold transition-colors duration-150 group-hover:text-blue-500">
+                {title}
+            </h1>
+            <p id="date" class="mt-1 text-neutral-400 transition-colors duration-150 group-hover:text-blue-500">
+                <time datetime={date.toISOString()}>
+                    {
+                        date.toLocaleDateString("en-us", {
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric",
+                        })
+                    }
+                </time>
+            </p>
+            {
+                pinned && (
+                    <div class="absolute flex place-self-end">
+                        <Icon class="m-4 text-lg text-white lg:text-2xl" name="carbon:pin-filled" />
+                    </div>
+                )
+            }
+        </div>
+    </div>
+</a>
+
+<!-- highlighted card
+<div class="flex w-fit max-w-5xl flex-col flex-wrap content-center justify-center rounded-lg p-4">
+	<div class="flex items-center justify-center">
+		<Image src={ImagePlaceholder} alt={""} width="1440" height="720" class={"rounded-2xl"} />
+	</div>
+	<div class="mt-4 flex flex-col flex-wrap items-center">
+		<h1 id="title" class="text-3xl font-bold">Using MDX</h1>
+		<p id="date" class="mt-1 text-neutral-300">July 19, 2024</p>
+	</div>
+</div>
+-->
