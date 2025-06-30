@@ -48,8 +48,6 @@ const { title, description, date, image, pinned, color } = Astro.props;
                     }
                 </p>
                 <h1 class="mt-2 text-center text-3xl font-bold lg:mx-10 lg:mt-4 lg:text-5xl">{title}</h1>
-
-                <!-- <hr class="mt-2 w-full border-t-2 border-neutral-700 opacity-100 lg:mt-4" /> -->
             </div>
 
             {
@@ -73,10 +71,6 @@ const { title, description, date, image, pinned, color } = Astro.props;
                 <slot />
             </article>
         </div>
-        <!-- 
-            <p>{updatedDate}</p>
-            <p>{image}</p>
-            <slot /> -->
     </main>
     <Footer />
 </Default>
