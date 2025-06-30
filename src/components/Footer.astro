@@ -2,10 +2,13 @@
 import { Icon } from "astro-icon/components";
 ---
 
-<footer class="flex justify-center bg-gray-900 py-12">
-    <a class="hover:text-blue-500" href="https://github.com/aldenasf/blog">Source</a>
-    <p class="mx-3">|</p>
-    <a class="hover:text-blue-500" href="https://github.com/aldenasf/"
-        ><Icon class={"text-2xl"} name="mdi:github" /><span> GitHub</span></a
-    >
+<footer class="flex flex-col items-center bg-neutral-900 py-12">
+    <p>Made with ❤️ by aldenasf</p>
+    <div class="flex flex-row">
+        <a
+            class="flex flex-row items-center underline duration-150 ease-in-out hover:text-red-300"
+            href="https://github.com/aldenasf/blog"><Icon class="mr-1 text-lg" name="fa6-brands:github" />Source</a
+        ><span class="mx-2">∙</span>
+        <a>GPL v3</a>
+    </div>
 </footer>
