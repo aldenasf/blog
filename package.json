@@ -24,6 +24,7 @@
     "typescript": "^5.5.3"
   },
   "devDependencies": {
+    "@iconify-json/fa6-brands": "^1.2.5",
     "prettier": "^3.3.2",
     "prettier-plugin-astro": "^0.14.0",
     "prettier-plugin-tailwindcss": "^0.6.13"
