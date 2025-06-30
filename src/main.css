@@ -34,6 +34,22 @@ layer(base);
   }
 }
 
+@theme {
+  --color-slate-red-50: hsl(341, 40%, 98%);
+  --color-slate-red-100: hsl(341, 40%, 96%);
+  --color-slate-red-200: hsl(345, 32%, 91%);
+  --color-slate-red-300: hsl(343, 29%, 84%);
+  --color-slate-red-400: hsl(346, 23%, 65%);
+  --color-slate-red-500: hsl(346, 18%, 47%);
+  --color-slate-red-600: hsl(346, 22%, 35%);
+  --color-slate-red-700: hsl(346, 28%, 27%);
+  --color-slate-red-800: hsl(349, 36%, 18%);
+  --color-slate-red-900: hsl(354, 48%, 11%);
+  --color-slate-red-950: hsl(0, 85%, 5%);
+}
+
+
+
 @layer base {
   html {
     font-family: "Atkinson Hyperlegible", sans-serif;
