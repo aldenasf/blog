@@ -1,10 +1,54 @@
-@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap')
+layer(base);
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap')
+layer(base);
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap')
+layer(base);
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@plugin '@tailwindcss/typography';
+
+@theme {
+  --font-*: initial;
+  --font-sans: Nunito Sans;
+  --font-body: Atkinson Hyperlegible;
+  --font-mono: Space Mono;
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@theme {
+  --color-slate-red-50: hsl(341, 40%, 98%);
+  --color-slate-red-100: hsl(341, 40%, 96%);
+  --color-slate-red-200: hsl(345, 32%, 91%);
+  --color-slate-red-300: hsl(343, 29%, 84%);
+  --color-slate-red-400: hsl(346, 23%, 65%);
+  --color-slate-red-500: hsl(346, 18%, 47%);
+  --color-slate-red-600: hsl(346, 22%, 35%);
+  --color-slate-red-700: hsl(346, 28%, 27%);
+  --color-slate-red-800: hsl(349, 36%, 18%);
+  --color-slate-red-900: hsl(354, 48%, 11%);
+  --color-slate-red-950: hsl(0, 85%, 5%);
+}
+
+
 
 @layer base {
   html {

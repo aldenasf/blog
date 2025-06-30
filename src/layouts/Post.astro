@@ -4,7 +4,6 @@ import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 import { Icon } from "astro-icon/components";
 import type { CollectionEntry } from "astro:content";
-import Page from "./Page.astro";
 
 type Props = CollectionEntry<"posts">["data"];
 
@@ -13,24 +12,21 @@ const { title, description, date, image, pinned, color } = Astro.props;
 
 <Default {title} {description} {date} {image} {pinned} {color}>
     <Navbar />
-    <main class="flex flex-col flex-wrap items-center justify-center py-2 lg:py-8">
-        <div class="flex flex-col flex-wrap items-center">
-            {
-                image && (
-                    <div id="image" class="flex">
-                        <img
-                            width={1020}
-                            height={510}
-                            src={image}
-                            alt=""
-                            class="max-w-sm rounded-xl drop-shadow-2xl lg:max-w-none"
-                        />
-                    </div>
-                )
-            }
-            <div class="mt-5 flex flex-col flex-wrap items-center lg:mt-10">
-                <div class="inline-flex">
-                    <p class="text-sm text-neutral-400 lg:text-xl">
+    <main class="flex flex-col items-center justify-center py-2 lg:py-8">
+        <div class="max-w-screen flex w-full flex-col flex-wrap items-center lg:max-w-[70rem]">
+            <div class="flex w-full flex-row lg:justify-start">
+                <a
+                    href="/blog"
+                    class="mb-4 flex h-14 w-full flex-row items-center border-y-2 border-neutral-600 bg-neutral-800 px-2 transition-colors duration-150 ease-in-out hover:bg-neutral-600 lg:mb-8 lg:h-12 lg:w-24 lg:justify-center lg:rounded-md lg:border-2"
+                >
+                    <Icon name="mdi:arrow-left" class="mr-1 text-xl" /><span class="">Back</span>
+                </a>
+            </div>
+            <div
+                class="flex w-full flex-col flex-wrap items-center border-y-2 border-neutral-600 bg-neutral-800 py-8 lg:rounded-xl lg:border-2"
+            >
+                <p class="flex flex-row items-center text-sm text-neutral-400 lg:text-xl">
+                    <span>
                         {
                             date.toLocaleDateString("en-us", {
                                 year: "numeric",
@@ -38,31 +34,43 @@ const { title, description, date, image, pinned, color } = Astro.props;
                                 day: "numeric",
                             })
                         }
-                        {
-                            pinned && (
-                                <>
-                                    <span class="mx-1.5">|</span>
-                                    <Icon class="text-sm lg:text-lg" name="carbon:pin-filled" />
-                                    <span class="">Pinned</span>
-                                </>
-                            )
-                        }
-                    </p>
-                </div>
-                <h1 class="my-2 text-center text-3xl font-bold lg:mx-10 lg:my-4 lg:text-5xl">{title}</h1>
-
-                <hr class="mt-2 min-w-full border-t-2 border-t-gray-700 opacity-20 lg:mt-4" />
+                    </span>
+                    {
+                        pinned && (
+                            <>
+                                <span class="mx-1.5">|</span>
+                                <span class="mx-0 flex flex-row items-center text-red-400">
+                                    <Icon class="mx-1 text-sm lg:text-lg" name="carbon:pin-filled" />
+                                    Pinned
+                                </span>
+                            </>
+                        )
+                    }
+                </p>
+                <h1 class="mt-2 text-center text-3xl font-bold lg:mx-10 lg:mt-4 lg:text-5xl">{title}</h1>
             </div>
+
+            {
+                image && (
+                    <div id="image" class="mt-0 flex w-full lg:mt-10">
+                        <img
+                            width={1020}
+                            height={510}
+                            src={image}
+                            alt=""
+                            class="w-full border-neutral-600 lg:rounded-xl lg:border-2"
+                        />
+                    </div>
+                )
+            }
         </div>
-        <div class="mt-10 flex">
-            <article class="prose prose-sm prose-gray prose-invert max-w-sm p-3 lg:prose-xl lg:max-w-5xl">
+        <div
+            class="lg:max-w-screen mt-0 flex w-full border-y-2 border-neutral-600 bg-neutral-800 lg:mt-10 lg:w-auto lg:rounded-xl lg:border-2 lg:p-12"
+        >
+            <article class="prose prose-base prose-neutral prose-invert max-w-sm p-4 lg:prose-lg lg:max-w-5xl lg:p-0">
                 <slot />
             </article>
         </div>
-        <!-- 
-            <p>{updatedDate}</p>
-            <p>{image}</p>
-            <slot /> -->
     </main>
     <Footer />
 </Default>

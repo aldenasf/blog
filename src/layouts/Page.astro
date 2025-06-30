@@ -19,7 +19,11 @@ const { title, description, image, color } = Astro.props;
     image={image || "blog-placeholder-about.jpg"}
     color={color || "#0f172a"}
 >
-    <Navbar />
-    <slot />
+    <header>
+        <Navbar />
+    </header>
+    <main>
+        <slot />
+    </main>
     <Footer />
 </Default>
